@@ -1,0 +1,45 @@
+{
+    "name": "marmotte/http",
+    "description": "HTTP specification for Marmotte framework",
+    "type": "library",
+    "keywords": [
+        "marmotte",
+        "framework",
+        "http"
+    ],
+    "homepage": "https://github.com/Marmotte-framework/Http",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kevin Traini",
+            "email": "kevin@ktraini.com"
+        }
+    ],
+    "funding": [
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/gashmob"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "vimeo/psalm": "^5.8",
+        "symfony/phpunit-bridge": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Marmotte\\Http\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Marmotte\\Http\\": "tests/"
+        }
+    },
+    "scripts": {
+        "psalm": "psalm",
+        "test": "simple-phpunit tests"
+    }
+}
