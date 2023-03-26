@@ -23,15 +23,15 @@
  * SOFTWARE.
  */
 
-namespace Marmotte\Http;
+namespace Marmotte\Http\Request;
 
 use Marmotte\Brick\Services\Service;
 
 #[Service]
-class Request
+final class Request
 {
     public function __construct()
     {
-        
+
     }
 }
