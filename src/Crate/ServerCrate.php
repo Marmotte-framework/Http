@@ -23,39 +23,16 @@
  * SOFTWARE.
  */
 
-namespace Marmotte\Http\Request;
+namespace Marmotte\Http\Crate;
 
-use Marmotte\Brick\Services\Service;
-use Marmotte\Http\Crate\ParameterCrate;
-use Marmotte\Http\Crate\ServerCrate;
-
-/**
- * This class represent an HTTP request
- */
-#[Service]
-final class Request
+class ServerCrate extends ParameterCrate
 {
-    public const METHOD_GET     = 'GET';
-    public const METHOD_POST    = 'POST';
-    public const METHOD_PUT     = 'PUT';
-    public const METHOD_PATCH   = 'PATCH';
-    public const METHOD_DELETE  = 'DELETE';
-    public const METHOD_OPTIONS = 'OPTIONS';
-    public const METHOD_HEAD    = 'HEAD';
-    public const METHOD_PURGE   = 'PURGE';
-    public const METHOD_TRACE   = 'TRACE';
-    public const METHOD_CONNECT = 'CONNECT';
-
-    // _.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-._.-.
-
-    public readonly string         $method;
-    public readonly ServerCrate    $server;
-    public readonly ParameterCrate $headers;
-
-    public function __construct()
+    public function getHeaders(): ParameterCrate
     {
-        $this->method  = $_SERVER['REQUEST_METHOD'] ?? self::METHOD_GET;
-        $this->server  = new ServerCrate($_SERVER);
-        $this->headers = $this->server->getHeaders();
+        return new ParameterCrate(array_filter(
+            $this->parameters,
+            static fn(string $key) => str_starts_with($key, 'HTTP_'),
+            ARRAY_FILTER_USE_KEY
+        ));
     }
 }
