@@ -1,7 +1,7 @@
 {
     "name": "marmotte/http",
     "description": "HTTP specification for Marmotte framework",
-    "type": "library",
+    "type": "marmotte-brick",
     "keywords": [
         "marmotte",
         "framework",
