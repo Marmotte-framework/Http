@@ -26,8 +26,10 @@
 namespace Marmotte\Http\Request;
 
 use Marmotte\Brick\Services\Service;
+use Marmotte\Http\Crate\FileCrate;
 use Marmotte\Http\Crate\ParameterCrate;
 use Marmotte\Http\Crate\ServerCrate;
+use Marmotte\Http\Exceptions\FileNotFoundException;
 
 /**
  * This class represent an HTTP request
@@ -55,7 +57,11 @@ final class Request
     public readonly ParameterCrate $request;
     public readonly string         $body;
     public readonly ParameterCrate $cookies;
+    public readonly FileCrate      $files;
 
+    /**
+     * @throws FileNotFoundException
+     */
     public function __construct()
     {
         $this->method  = $_SERVER['REQUEST_METHOD'] ?? self::METHOD_GET;
@@ -67,5 +73,6 @@ final class Request
         $this->request = new ParameterCrate($_POST);
         $this->body    = file_get_contents('php://input') ?: '';
         $this->cookies = new ParameterCrate($_COOKIE);
+        $this->files   = new FileCrate($_FILES);
     }
 }
