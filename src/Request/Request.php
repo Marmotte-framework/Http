@@ -51,11 +51,21 @@ final class Request
     public readonly string         $method;
     public readonly ServerCrate    $server;
     public readonly ParameterCrate $headers;
+    public readonly ParameterCrate $query;
+    public readonly ParameterCrate $request;
+    public readonly string         $body;
+    public readonly ParameterCrate $cookies;
 
     public function __construct()
     {
         $this->method  = $_SERVER['REQUEST_METHOD'] ?? self::METHOD_GET;
         $this->server  = new ServerCrate($_SERVER);
         $this->headers = $this->server->getHeaders();
+        /** @var array<string, mixed> $_GET */
+        $this->query = new ParameterCrate($_GET);
+        /** @var array<string, mixed> $_POST */
+        $this->request = new ParameterCrate($_POST);
+        $this->body    = file_get_contents('php://input') ?: '';
+        $this->cookies = new ParameterCrate($_COOKIE);
     }
 }
