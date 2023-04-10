@@ -25,22 +25,24 @@
 
 namespace Marmotte\Http;
 
-use GuzzleHttp\Psr7\Utils;
-use Marmotte\Brick\Services\Service;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use function Psl\Json\encode as psl_json_encode;
 
-#[Service]
-class JsonResponseFactory
-{
-    public function __construct(
-        private readonly ResponseFactory $factory
-    ) {
-    }
+require_once __DIR__ . '/../vendor/autoload.php';
 
-    public function createJsonResponse(array $json, int $code = 200): ResponseInterface
+class JsonResponseFactoryTest extends TestCase
+{
+    public function testItCreateResponse(): void
     {
-        return $this->factory->createResponse($code)
-            ->withBody(Utils::streamFor(psl_json_encode($json)));
+        $factory = new JsonResponseFactory(new ResponseFactory());
+
+        $json     = [
+            'foo' => 'bar'
+        ];
+        $response = $factory->createJsonResponse($json);
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertSame(psl_json_encode($json), $response->getBody()->getContents());
+        self::assertEquals(200, $response->getStatusCode());
     }
 }

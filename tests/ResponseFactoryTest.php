@@ -26,13 +26,19 @@
 namespace Marmotte\Http;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-class PassTest extends TestCase
+class ResponseFactoryTest extends TestCase
 {
-    public function testItPass(): void
+    public function testItCreateResponse(): void
     {
-        self::assertTrue(true);
+        $factory = new ResponseFactory();
+
+        $response = $factory->createResponse(201, "It's ok!");
+        self::assertInstanceOf(ResponseInterface::class, $response);
+        self::assertEquals(201, $response->getStatusCode());
+        self::assertSame("It's ok!", $response->getReasonPhrase());
     }
 }
