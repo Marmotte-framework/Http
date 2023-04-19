@@ -152,16 +152,16 @@
         },
         {
             "name": "marmotte/brick",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Marmotte-framework/Brick.git",
-                "reference": "43c2c0f7e8e709957fa9189986761861e82a2822"
+                "reference": "314f09c4d0e35f05a7ef2efaa6691ceafade61e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Marmotte-framework/Brick/zipball/43c2c0f7e8e709957fa9189986761861e82a2822",
-                "reference": "43c2c0f7e8e709957fa9189986761861e82a2822",
+                "url": "https://api.github.com/repos/Marmotte-framework/Brick/zipball/314f09c4d0e35f05a7ef2efaa6691ceafade61e6",
+                "reference": "314f09c4d0e35f05a7ef2efaa6691ceafade61e6",
                 "shasum": ""
             },
             "require": {
@@ -198,7 +198,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Marmotte-framework/Brick/issues",
-                "source": "https://github.com/Marmotte-framework/Brick/tree/v1.0.1"
+                "source": "https://github.com/Marmotte-framework/Brick/tree/v1.1.0"
             },
             "funding": [
                 {
@@ -206,7 +206,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-04-02T08:55:11+00:00"
+            "time": "2023-04-18T18:25:57+00:00"
         },
         {
             "name": "psr/http-factory",
