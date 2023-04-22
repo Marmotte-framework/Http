@@ -2,9 +2,11 @@
 
 namespace Marmotte\Http\Stream;
 
+use Marmotte\Brick\Services\Service;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
+#[Service]
 class StreamFactory implements StreamFactoryInterface
 {
     /**
@@ -14,7 +16,10 @@ class StreamFactory implements StreamFactoryInterface
     {
         $file   = fopen('php://temp', 'r+');
         $stream = $this->createStreamFromResource($file);
-        $stream->write($content);
+        if ($stream->write($content) !== strlen($content)) {
+            throw new StreamException('Fail to write in stream');
+        }
+        $stream->rewind();
 
         return $stream;
     }

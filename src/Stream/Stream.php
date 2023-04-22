@@ -11,36 +11,36 @@ class Stream implements StreamInterface
     private bool   $readable = false;
     private bool   $writable = false;
     private bool   $seekable = false;
-    private int    $size;
+    private ?int   $size;
 
     /**
      * @param resource|closed-resource $stream
      * @throws StreamException
      */
     public function __construct(
-        private mixed $stream
+        private mixed $stream,
     ) {
         /** @var string */
         $this->filename = $this->getMetadata('uri');
         /** @var string */
         $this->mode = $this->getMetadata('mode');
 
-        switch ($this->mode) {
-            case 'r':
+        switch (true) {
+            case str_starts_with($this->mode, 'r'):
                 $this->readable = true;
                 break;
-            case 'r+':
-            case 'w+':
-            case 'a+':
-            case 'x+':
-            case 'c+':
+            case str_starts_with($this->mode, 'r+'):
+            case str_starts_with($this->mode, 'w+'):
+            case str_starts_with($this->mode, 'a+'):
+            case str_starts_with($this->mode, 'x+'):
+            case str_starts_with($this->mode, 'c+'):
                 $this->readable = true;
                 $this->writable = true;
                 break;
-            case 'w':
-            case 'a':
-            case 'x':
-            case 'c':
+            case str_starts_with($this->mode, 'w'):
+            case str_starts_with($this->mode, 'a'):
+            case str_starts_with($this->mode, 'x'):
+            case str_starts_with($this->mode, 'c'):
                 $this->writable = true;
                 break;
 
@@ -50,7 +50,11 @@ class Stream implements StreamInterface
         /** @var bool */
         $this->seekable = $this->getMetadata('seekable');
 
-        $this->size = filesize($this->filename);
+        if ($this->filename === 'php://temp') {
+            $this->size = null;
+        } else {
+            $this->size = filesize($this->filename) ?: null;
+        }
     }
 
     /**
@@ -61,7 +65,7 @@ class Stream implements StreamInterface
         if ($this->isSeekable() && $this->isReadable()) {
             $this->rewind();
 
-            return $this->read($this->size);
+            return $this->getContents();
         }
 
         throw new StreamException('Stream is not readable nor seekable');
