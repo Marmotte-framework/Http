@@ -5,8 +5,6 @@ namespace Marmotte\Http\Stream;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 class StreamFactoryTest extends TestCase
 {
     /** @psalm-suppress PropertyNotSetInConstructor */
