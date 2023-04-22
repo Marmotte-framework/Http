@@ -4,7 +4,7 @@ namespace Marmotte\Http\Stream;
 
 use Psr\Http\Message\StreamInterface;
 
-class Stream implements StreamInterface
+final class Stream implements StreamInterface
 {
     private string $filename;
     private string $mode;
