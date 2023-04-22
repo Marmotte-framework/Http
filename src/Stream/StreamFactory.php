@@ -6,7 +6,6 @@ use Marmotte\Brick\Services\Service;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
-#[Service]
 class StreamFactory implements StreamFactoryInterface
 {
     /**
