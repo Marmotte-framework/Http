@@ -29,6 +29,7 @@ namespace Marmotte\Http\Request;
 
 use Marmotte\Http\Uri\UriFactory;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 
 class RequestTest extends TestCase
 {
@@ -76,5 +77,6 @@ class RequestTest extends TestCase
         self::assertSame('https://example.com', (string) $request->getUri());
         self::assertSame('https://my.example.com', (string) $request2->getUri());
         self::assertSame('my.example.com', $request2->getHeaderLine('host'));
+        self::assertInstanceOf(RequestInterface::class, $request2);
     }
 }

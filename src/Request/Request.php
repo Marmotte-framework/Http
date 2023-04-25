@@ -97,9 +97,11 @@ class Request extends Message implements RequestInterface
         if ($preserveHost) {
             if ((!$new->hasHeader('Host') || empty($new->getHeader('Host'))) &&
                 !empty($host = $uri->getHost())) {
+                /** @psalm-suppress LessSpecificReturnStatement */
                 return $new->withHeader('Host', $host);
             }
         } else if (!empty($host = $uri->getHost())) {
+            /** @psalm-suppress LessSpecificReturnStatement */
             return $new->withHeader('Host', $host);
         }
 
