@@ -23,24 +23,29 @@
  * SOFTWARE.
  */
 
-namespace Marmotte\Http;
+declare(strict_types=1);
 
-use GuzzleHttp\Psr7\HttpFactory;
-use Marmotte\Brick\Services\Service;
-use Psr\Http\Message\ResponseInterface;
+namespace Marmotte\Http\File;
 
-#[Service]
-class ResponseFactory
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
+use Psr\Http\Message\UploadedFileInterface;
+
+final class UploadedFileFactory implements UploadedFileFactoryInterface
 {
-    private readonly HttpFactory $factory;
-
-    public function __construct()
-    {
-        $this->factory = new HttpFactory();
-    }
-
-    public function createResponse(int $code = 200, string $reason_phrase = ''): ResponseInterface
-    {
-        return $this->factory->createResponse($code, $reason_phrase);
+    public function createUploadedFile(
+        StreamInterface $stream,
+        int             $size = null,
+        int             $error = \UPLOAD_ERR_OK,
+        string          $clientFilename = null,
+        string          $clientMediaType = null,
+    ): UploadedFileInterface {
+        return new UploadedFile(
+            $stream,
+            $size ?? $stream->getSize(),
+            $error,
+            $clientFilename,
+            $clientMediaType
+        );
     }
 }

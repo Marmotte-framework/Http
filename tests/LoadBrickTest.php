@@ -23,31 +23,30 @@
  * SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Marmotte\Http;
 
-use GuzzleHttp\Psr7\Uri;
-use Marmotte\Brick\Services\Service;
+use Marmotte\Brick\Bricks\BrickLoader;
+use Marmotte\Brick\Bricks\BrickManager;
+use Marmotte\Brick\Cache\CacheManager;
+use Marmotte\Brick\Mode;
+use PHPUnit\Framework\TestCase;
 
-#[Service]
-class Request extends \GuzzleHttp\Psr7\Request
+class LoadBrickTest extends TestCase
 {
-    public function __construct()
+    public function testBrickCanBeLoaded(): void
     {
-        $method = array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET';
-        $uri    = array_key_exists('REQUEST_URI', $_SERVER) ? $_SERVER['REQUEST_URI'] : '';
-        /** @var array<string, string>|false $headers */
-        $headers = getallheaders();
-        $headers = is_array($headers) ? $headers : [];
-        $version = array_key_exists('SERVER_PROTOCOL', $_SERVER)
-            ? substr($_SERVER['SERVER_PROTOCOL'], strlen('HTTP/'))
-            : '1.1';
-
-        parent::__construct(
-            $method,
-            new Uri($uri),
-            $headers,
-            file_get_contents('php://input') ?: '',
-            $version
+        $brick_manager = new BrickManager();
+        $brick_loader  = new BrickLoader(
+            $brick_manager,
+            new CacheManager(mode: Mode::TEST)
         );
+        $brick_loader->loadFromDir(__DIR__ . '/../src');
+
+        $bricks = $brick_manager->getBricks();
+        self::assertCount(1, $bricks);
+        $brick = $bricks[0];
+        self::assertSame(HttpBrick::class, $brick->brick->getName());
     }
 }

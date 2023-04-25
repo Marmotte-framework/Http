@@ -23,26 +23,38 @@
  * SOFTWARE.
  */
 
-namespace Marmotte\Http;
+declare(strict_types=1);
+
+namespace Marmotte\Http\Request;
 
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use function Psl\Json\encode as psl_json_encode;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-class JsonResponseFactoryTest extends TestCase
+class RequestFactoryTest extends TestCase
 {
-    public function testItCreateResponse(): void
+    public function testCreateRequest(): void
     {
-        $factory = new JsonResponseFactory(new ResponseFactory());
+        $factory = new RequestFactory();
 
-        $json     = [
-            'foo' => 'bar'
-        ];
-        $response = $factory->createJsonResponse($json);
-        self::assertInstanceOf(ResponseInterface::class, $response);
-        self::assertSame(psl_json_encode($json), $response->getBody()->getContents());
-        self::assertEquals(200, $response->getStatusCode());
+        $request = $factory->createRequest(Request::METHOD_GET, 'example.com');
+
+        self::assertInstanceOf(Request::class, $request);
+        self::assertSame(Request::METHOD_GET, $request->getMethod());
+        self::assertSame('example.com', (string) $request->getUri());
+    }
+
+    public function testCreateServerRequest(): void
+    {
+        $factory = new RequestFactory();
+
+        $request = $factory->createServerRequest(
+            ServerRequest::METHOD_GET,
+            'example.com',
+            ['OS' => 'Linux']
+        );
+
+        self::assertInstanceOf(ServerRequest::class, $request);
+        self::assertSame(ServerRequest::METHOD_GET, $request->getMethod());
+        self::assertSame('example.com', (string) $request->getUri());
+        self::assertEqualsCanonicalizing(['OS' => 'Linux'], $request->getServerParams());
     }
 }

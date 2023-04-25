@@ -23,24 +23,20 @@
  * SOFTWARE.
  */
 
-namespace Marmotte\Http;
+declare(strict_types=1);
 
-use GuzzleHttp\Psr7\Utils;
-use Marmotte\Brick\Services\Service;
-use Psr\Http\Message\ResponseInterface;
-use function Psl\Json\encode as psl_json_encode;
+namespace Marmotte\Http\Uri;
 
-#[Service]
-class JsonResponseFactory
+use PHPUnit\Framework\TestCase;
+
+class UriFactoryTest extends TestCase
 {
-    public function __construct(
-        private readonly ResponseFactory $factory
-    ) {
-    }
-
-    public function createJsonResponse(array $json, int $code = 200): ResponseInterface
+    public function testCreateUri(): void
     {
-        return $this->factory->createResponse($code)
-            ->withBody(Utils::streamFor(psl_json_encode($json)));
+        $factory = new UriFactory();
+
+        $str_uri = 'https://github.com/Marmotte-framework/Http';
+        $uri     = $factory->createUri($str_uri);
+        self::assertSame($str_uri, (string) $uri);
     }
 }

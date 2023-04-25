@@ -23,22 +23,14 @@
  * SOFTWARE.
  */
 
-namespace Marmotte\Http;
+declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
+namespace Marmotte\Http\File;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-class ResponseFactoryTest extends TestCase
+final class UploadedFileException extends \Exception
 {
-    public function testItCreateResponse(): void
+    public function __construct(string $msg)
     {
-        $factory = new ResponseFactory();
-
-        $response = $factory->createResponse(201, "It's ok!");
-        self::assertInstanceOf(ResponseInterface::class, $response);
-        self::assertEquals(201, $response->getStatusCode());
-        self::assertSame("It's ok!", $response->getReasonPhrase());
+        parent::__construct($msg);
     }
 }
