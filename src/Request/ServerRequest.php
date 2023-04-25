@@ -27,11 +27,13 @@ declare(strict_types=1);
 
 namespace Marmotte\Http\Request;
 
+use Marmotte\Brick\Services\Service;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use Psr\Http\Message\UriInterface;
 
+#[Service(autoload: false)]
 final class ServerRequest extends Request implements ServerRequestInterface
 {
     /**
