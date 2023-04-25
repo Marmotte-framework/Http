@@ -31,9 +31,11 @@ use Marmotte\Http\Stream\StreamFactory;
 use Marmotte\Http\Uri\UriFactory;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 
-final class RequestFactory implements RequestFactoryInterface
+final class RequestFactory implements RequestFactoryInterface, ServerRequestFactoryInterface
 {
     public function createRequest(string $method, $uri): RequestInterface
     {
@@ -43,7 +45,25 @@ final class RequestFactory implements RequestFactoryInterface
             $uri instanceof UriInterface ? $uri : (new UriFactory())->createUri($uri),
             '1.1',
             [],
-            (new StreamFactory())->createStream(),
+            (new StreamFactory())->createStream()
+        );
+    }
+
+    public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
+    {
+        return new ServerRequest(
+            $serverParams,
+            [],
+            [],
+            [],
+            null,
+            [],
+            '',
+            $method,
+            $uri instanceof UriInterface ? $uri : (new UriFactory())->createUri($uri),
+            '1.1',
+            [],
+            (new StreamFactory())->createStream()
         );
     }
 }

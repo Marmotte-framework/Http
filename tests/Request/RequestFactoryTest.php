@@ -39,6 +39,22 @@ class RequestFactoryTest extends TestCase
 
         self::assertInstanceOf(Request::class, $request);
         self::assertSame(Request::METHOD_GET, $request->getMethod());
-        self::assertSame('example.com', (string)$request->getUri());
+        self::assertSame('example.com', (string) $request->getUri());
+    }
+
+    public function testCreateServerRequest(): void
+    {
+        $factory = new RequestFactory();
+
+        $request = $factory->createServerRequest(
+            ServerRequest::METHOD_GET,
+            'example.com',
+            ['OS' => 'Linux']
+        );
+
+        self::assertInstanceOf(ServerRequest::class, $request);
+        self::assertSame(ServerRequest::METHOD_GET, $request->getMethod());
+        self::assertSame('example.com', (string) $request->getUri());
+        self::assertEqualsCanonicalizing(['OS' => 'Linux'], $request->getServerParams());
     }
 }
