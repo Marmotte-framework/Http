@@ -30,7 +30,7 @@ namespace Marmotte\Http\Message;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 
-final class Message implements MessageInterface
+class Message implements MessageInterface
 {
     /**
      * @var array<string, string>

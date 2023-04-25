@@ -46,6 +46,6 @@
     },
     "scripts": {
         "psalm": "psalm",
-        "test": "phpunit tests"
+        "test": "phpunit tests --random-order"
     }
 }
