@@ -89,6 +89,7 @@ class Request extends Message implements RequestInterface
         return $this->uri;
     }
 
+    /** @psalm-suppress MoreSpecificReturnType */
     public function withUri(UriInterface $uri, bool $preserveHost = false): RequestInterface
     {
         $new      = clone $this;
