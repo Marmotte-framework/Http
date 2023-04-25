@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d7e2d7d96da008c7e46fa8ae805b3c6",
+    "content-hash": "4ec01db712ffc0d66d79c9ecf43aa82b",
     "packages": [
         {
             "name": "composer/class-map-generator",
@@ -152,16 +152,16 @@
         },
         {
             "name": "marmotte/brick",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Marmotte-framework/Brick.git",
-                "reference": "314f09c4d0e35f05a7ef2efaa6691ceafade61e6"
+                "reference": "5e132efbb70834eff09908d76374a9942009d182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Marmotte-framework/Brick/zipball/314f09c4d0e35f05a7ef2efaa6691ceafade61e6",
-                "reference": "314f09c4d0e35f05a7ef2efaa6691ceafade61e6",
+                "url": "https://api.github.com/repos/Marmotte-framework/Brick/zipball/5e132efbb70834eff09908d76374a9942009d182",
+                "reference": "5e132efbb70834eff09908d76374a9942009d182",
                 "shasum": ""
             },
             "require": {
@@ -170,14 +170,17 @@
                 "symfony/yaml": "^6.2"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^6.2",
+                "phpunit/phpunit": "^10",
                 "vimeo/psalm": "^5.8"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Marmotte\\Brick\\": "src/"
-                }
+                },
+                "classmap": [
+                    "src/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -198,7 +201,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Marmotte-framework/Brick/issues",
-                "source": "https://github.com/Marmotte-framework/Brick/tree/v1.1.0"
+                "source": "https://github.com/Marmotte-framework/Brick/tree/v1.2.0"
             },
             "funding": [
                 {
@@ -206,7 +209,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-04-18T18:25:57+00:00"
+            "time": "2023-04-22T07:58:06+00:00"
         },
         {
             "name": "psr/http-factory",
