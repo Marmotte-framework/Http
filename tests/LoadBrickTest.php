@@ -31,6 +31,7 @@ use Marmotte\Brick\Bricks\BrickLoader;
 use Marmotte\Brick\Bricks\BrickManager;
 use Marmotte\Brick\Cache\CacheManager;
 use Marmotte\Brick\Mode;
+use Marmotte\Http\Request\ServerRequest;
 use Marmotte\Http\Response\ResponseFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -39,7 +40,7 @@ class LoadBrickTest extends TestCase
     public function testBrickCanBeLoaded(): void
     {
         $brick_manager = new BrickManager();
-        $brick_loader  = new BrickLoader(
+        $brick_loader = new BrickLoader(
             $brick_manager,
             new CacheManager(mode: Mode::TEST)
         );
@@ -52,5 +53,6 @@ class LoadBrickTest extends TestCase
         self::assertSame(HttpBrick::class, $brick->brick->getName());
 
         self::assertTrue($service_manager->hasService(ResponseFactory::class));
+        self::assertTrue($service_manager->hasService(ServerRequest::class));
     }
 }

@@ -37,8 +37,8 @@ use Psr\Http\Message\UriInterface;
 final class ServerRequest extends Request implements ServerRequestInterface
 {
     /**
-     * @param UploadedFileInterface[] $uploaded_files
-     * @param array<string, string[]> $headers
+     * @param array<string, UploadedFileInterface> $uploaded_files
+     * @param array<string, string[]>              $headers
      */
     public function __construct(
         private readonly array    $server_params,
@@ -89,7 +89,7 @@ final class ServerRequest extends Request implements ServerRequestInterface
     }
 
     /**
-     * @return UploadedFileInterface[]
+     * @return array<string, UploadedFileInterface>
      */
     public function getUploadedFiles(): array
     {
@@ -99,7 +99,7 @@ final class ServerRequest extends Request implements ServerRequestInterface
     /**
      * @psalm-suppress MoreSpecificImplementedParamType,LessSpecificImplementedReturnType
      *
-     * @param UploadedFileInterface[] $uploadedFiles
+     * @param array<string, UploadedFileInterface> $uploadedFiles
      */
     public function withUploadedFiles(array $uploadedFiles): ServerRequestInterface
     {

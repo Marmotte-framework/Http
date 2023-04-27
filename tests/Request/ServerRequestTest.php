@@ -50,7 +50,7 @@ class ServerRequestTest extends TestCase
         $attributes = $request->getAttributes();
         self::assertCount(2, $attributes);
         self::assertEqualsCanonicalizing([
-            'arg' => 'value',
+            'arg'    => 'value',
             'answer' => 42,
         ], $attributes);
     }
@@ -97,7 +97,7 @@ class ServerRequestTest extends TestCase
     public function testWithUploadedFiles(): void
     {
         $request = $this->factory->createServerRequest(ServerRequest::METHOD_GET, 'example.com')
-            ->withUploadedFiles([(new UploadedFileFactory())->createUploadedFile((new StreamFactory())->createStream())]);
+            ->withUploadedFiles(['name' => (new UploadedFileFactory())->createUploadedFile((new StreamFactory())->createStream())]);
 
         self::assertCount(1, $request->getUploadedFiles());
     }
