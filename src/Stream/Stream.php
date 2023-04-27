@@ -50,7 +50,7 @@ final class Stream implements StreamInterface
         /** @var bool */
         $this->seekable = $this->getMetadata('seekable');
 
-        if ($this->filename === 'php://temp') {
+        if ($this->filename === 'php://temp' || $this->filename === 'php://input') {
             $this->size = null;
         } else {
             $this->size = filesize($this->filename) ?: null;

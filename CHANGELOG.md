@@ -4,6 +4,7 @@
 
 - Made `ServerRequest` and `ResponseFactory` Services
 - Initialize `ServerRequest` in `HttpBrick`, then add it to Services
+- Don't try to check size of `php://input`
 
 ## v1.1.0
 
