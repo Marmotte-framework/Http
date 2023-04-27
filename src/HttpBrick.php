@@ -76,7 +76,7 @@ class HttpBrick implements Brick
 
         $find_port = false;
         if (isset($_SERVER['HTTP_HOST'])) {
-            $components = parse_url($_SERVER['HTTP_HOST']);
+            $components = parse_url('http://' . $_SERVER['HTTP_HOST']);
             if (isset($components['host'])) {
                 $uri = $uri->withHost($components['host']);
             }

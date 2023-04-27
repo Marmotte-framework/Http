@@ -40,7 +40,7 @@ class LoadBrickTest extends TestCase
     public function testBrickCanBeLoaded(): void
     {
         $brick_manager = new BrickManager();
-        $brick_loader = new BrickLoader(
+        $brick_loader  = new BrickLoader(
             $brick_manager,
             new CacheManager(mode: Mode::TEST)
         );
@@ -54,5 +54,26 @@ class LoadBrickTest extends TestCase
 
         self::assertTrue($service_manager->hasService(ResponseFactory::class));
         self::assertTrue($service_manager->hasService(ServerRequest::class));
+    }
+
+    public function testItLoadUriForServerRequest(): void
+    {
+        $_SERVER = [
+            'HTTPS'       => 'on',
+            'HTTP_HOST'   => 'example.com',
+            'REQUEST_URI' => '/path/to/page?arg=value#anchor',
+        ];
+
+        $brick_manager = new BrickManager();
+        $brick_loader  = new BrickLoader(
+            $brick_manager,
+            new CacheManager(mode: Mode::TEST)
+        );
+        $brick_loader->loadFromDir(__DIR__ . '/../src');
+        $service_manager = $brick_manager->initialize(__DIR__ . '/../src', __DIR__ . '/../src');
+
+        self::assertTrue($service_manager->hasService(ServerRequest::class));
+        $request = $service_manager->getService(ServerRequest::class);
+        self::assertSame('https://example.com/path/to/page?arg=value#anchor', (string) $request->getUri());
     }
 }
