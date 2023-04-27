@@ -1,5 +1,9 @@
 # Changelog
 
+# v1.1.1
+
+- Made `ServerRequest` and `ResponseFactory` Services
+
 # v1.1.0
 
 *2023-04-25*
