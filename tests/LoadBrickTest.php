@@ -74,6 +74,7 @@ class LoadBrickTest extends TestCase
 
         self::assertTrue($service_manager->hasService(ServerRequest::class));
         $request = $service_manager->getService(ServerRequest::class);
+        self::assertInstanceOf(ServerRequest::class, $request);
         self::assertSame('https://example.com/path/to/page?arg=value#anchor', (string) $request->getUri());
     }
 }
