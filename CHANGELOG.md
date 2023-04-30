@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.3
+
+- Exclude tests files in `.gitattributes`
+
 ## v1.1.2
 
 *2023-04-30*
