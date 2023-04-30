@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.2
+
+*2023-04-30*
+
+- Exclude tests dir from classmap
+
 ## v1.1.1
 
 *2023-04-27*
