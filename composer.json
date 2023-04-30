@@ -36,8 +36,8 @@
         "psr-4": {
             "Marmotte\\Http\\": "src/"
         },
-        "classmap": [
-            "src/"
+        "exclude-from-classmap": [
+            "tests/"
         ]
     },
     "autoload-dev": {
