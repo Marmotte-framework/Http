@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.4
+
+- Fix missing protocol version in ResponseFactory
+
 ## v1.1.3
 
 *2023-04-30*

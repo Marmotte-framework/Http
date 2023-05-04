@@ -44,7 +44,7 @@ final class ResponseFactory implements ResponseFactoryInterface
         return new Response(
             $code,
             $reasonPhrase,
-            '',
+            '1.1',
             [],
             (new StreamFactory())->createStream('')
         );
