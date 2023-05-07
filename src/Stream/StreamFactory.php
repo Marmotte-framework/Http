@@ -2,9 +2,11 @@
 
 namespace Marmotte\Http\Stream;
 
+use Marmotte\Brick\Services\Service;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 
+#[Service]
 final class StreamFactory implements StreamFactoryInterface
 {
     /**
