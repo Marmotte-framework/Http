@@ -2,6 +2,8 @@
 
 ## v1.1.4
 
+*2023-05-07*
+
 - Fix missing protocol version in ResponseFactory
 - StreamFactory is now a Service
 
