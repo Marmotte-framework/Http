@@ -3,6 +3,7 @@
 ## v1.1.4
 
 - Fix missing protocol version in ResponseFactory
+- StreamFactory is now a Service
 
 ## v1.1.3
 

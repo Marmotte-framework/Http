@@ -33,6 +33,7 @@ use Marmotte\Brick\Cache\CacheManager;
 use Marmotte\Brick\Mode;
 use Marmotte\Http\Request\ServerRequest;
 use Marmotte\Http\Response\ResponseFactory;
+use Marmotte\Http\Stream\StreamFactory;
 use PHPUnit\Framework\TestCase;
 
 class LoadBrickTest extends TestCase
@@ -54,6 +55,7 @@ class LoadBrickTest extends TestCase
 
         self::assertTrue($service_manager->hasService(ResponseFactory::class));
         self::assertTrue($service_manager->hasService(ServerRequest::class));
+        self::assertTrue($service_manager->hasService(StreamFactory::class));
     }
 
     public function testItLoadUriForServerRequest(): void
