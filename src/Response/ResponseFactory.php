@@ -35,10 +35,6 @@ use Psr\Http\Message\ResponseInterface;
 #[Service]
 final class ResponseFactory implements ResponseFactoryInterface
 {
-    public function __construct()
-    {
-    }
-
     public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
         return new Response(
@@ -48,5 +44,30 @@ final class ResponseFactory implements ResponseFactoryInterface
             [],
             (new StreamFactory())->createStream('')
         );
+    }
+
+    public function notFound(): ResponseInterface
+    {
+        return $this->createResponse(404);
+    }
+
+    public function serverError(): ResponseInterface
+    {
+        return $this->createResponse(500);
+    }
+
+    public function movedPermanently(string $new_path): ResponseInterface
+    {
+        return $this->createResponse(301)->withHeader('Location', $new_path);
+    }
+
+    public function unauthorized(): ResponseInterface
+    {
+        return $this->createResponse(401);
+    }
+
+    public function forbidden(): ResponseInterface
+    {
+        return $this->createResponse(403);
     }
 }

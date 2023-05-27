@@ -31,13 +31,60 @@ use PHPUnit\Framework\TestCase;
 
 class ResponseFactoryTest extends TestCase
 {
+    /** @psalm-suppress PropertyNotSetInConstructor */
+    private ResponseFactory $factory;
+
+    protected function setUp(): void
+    {
+        $this->factory = new ResponseFactory();
+    }
+
     public function testCreateResponse(): void
     {
-        $factory = new ResponseFactory();
-
-        $response = $factory->createResponse();
+        $response = $this->factory->createResponse();
 
         self::assertSame(200, $response->getStatusCode());
         self::assertSame('OK', $response->getReasonPhrase());
+    }
+
+    public function testNotFound(): void
+    {
+        $response = $this->factory->notFound();
+
+        self::assertSame(404, $response->getStatusCode());
+        self::assertSame('Not Found', $response->getReasonPhrase());
+    }
+
+    public function testServerError(): void
+    {
+        $response = $this->factory->serverError();
+
+        self::assertSame(500, $response->getStatusCode());
+        self::assertSame('Internal Server Error', $response->getReasonPhrase());
+    }
+
+    public function testMovedPermanently(): void
+    {
+        $response = $this->factory->movedPermanently('example.com');
+
+        self::assertSame(301, $response->getStatusCode());
+        self::assertSame('Moved Permanently', $response->getReasonPhrase());
+        self::assertEqualsCanonicalizing(['example.com'], $response->getHeader('Location'));
+    }
+
+    public function testUnauthorized(): void
+    {
+        $response = $this->factory->unauthorized();
+
+        self::assertSame(401, $response->getStatusCode());
+        self::assertSame('Unauthorized', $response->getReasonPhrase());
+    }
+
+    public function testForbidden(): void
+    {
+        $response = $this->factory->forbidden();
+
+        self::assertSame(403, $response->getStatusCode());
+        self::assertSame('Forbidden', $response->getReasonPhrase());
     }
 }
