@@ -35,10 +35,6 @@ use Psr\Http\Message\ResponseInterface;
 #[Service]
 final class ResponseFactory implements ResponseFactoryInterface
 {
-    public function __construct()
-    {
-    }
-
     public function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
         return new Response(
