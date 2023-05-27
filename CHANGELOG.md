@@ -2,6 +2,8 @@
 
 ## v1.2.0
 
+*2023-05-27*
+
 - Add utility functions to `ResponseFactory`
 
 ## v1.1.4
